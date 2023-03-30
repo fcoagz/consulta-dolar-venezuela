@@ -19,7 +19,7 @@ const consultaDolar = require('consulta-dolar-venezuela');
 ```js
 const consultaDolar = require('consulta-dolar-venezuela');
 
-const consultaDolar.$monitor().then($=>{console.log($)})
+consultaDolar.$monitor().then($=>{console.log($)})
 
 > {
   '$bcv': 'Bs. 24,497',
@@ -37,7 +37,7 @@ Se retorna una estructura en JSON.
 ```js
 const consultaDolar = require('consulta-dolar-venezuela');
 
-const consultaDolar.$monitor().then($=>{console.log($['$bcv'])})
+consultaDolar.$monitor().then($=>{console.log($['$bcv'])})
 
 > Bs. 24,497
 ```
