@@ -11,10 +11,11 @@
     "url": "git+https://github.com/fcoagz/consulta-dolar-venezuela.git"
   },
   "keywords": [
-    "[\"dolarmonitor\"",
-    "\"dolartoday\"",
-    "\"enparalelovzla\"",
-    "\"venezuela\"]"
+    "dolarmonitor",
+    "dolartoday",
+    "enparalelovzla",
+    "bcv",
+    "venezuela"
   ],
   "author": "ciscocode",
   "license": "ISC",
