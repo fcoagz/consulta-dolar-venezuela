@@ -1,0 +1,25 @@
+{
+  "name": "consulta-dolar-venezuela",
+  "version": "1.0.0",
+  "description": "realiza la consultas del dolar monitor y de otras cotizaciones",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcoagz/consulta-dolar-venezuela.git"
+  },
+  "keywords": [
+    "[\"dolarmonitor\"",
+    "\"dolartoday\"",
+    "\"enparalelovzla\"",
+    "\"venezuela\"]"
+  ],
+  "author": "ciscocode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fcoagz/consulta-dolar-venezuela/issues"
+  },
+  "homepage": "https://github.com/fcoagz/consulta-dolar-venezuela#readme"
+}
