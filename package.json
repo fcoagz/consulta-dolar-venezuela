@@ -1,6 +1,6 @@
 {
   "name": "consulta-dolar-venezuela",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "realiza la consultas del dolar monitor y de otras cotizaciones",
   "main": "src/index.js",
   "scripts": {
