@@ -22,12 +22,12 @@ const consultaDolar = require('consulta-dolar-venezuela');
 consultaDolar.$monitor().then($=>{console.log($)})
 
 > {
-  '$bcv': 'Bs. 24,497',
-  '$enparalelovzla': 'Bs. 25,11',
-  '$dolartoday': 'Bs. 25,15',
-  '$monitordolarweb': 'Bs. 25,02',
-  '$enparalelovzlavip': 'Bs. 25,04',
-  '$binancep2p': 'Bs. 25,020'
+  '$bcv': 'Bs. 24.497',
+  '$enparalelovzla': 'Bs. 25.11',
+  '$dolartoday': 'Bs. 25.15',
+  '$monitordolarweb': 'Bs. 25.02',
+  '$enparalelovzlavip': 'Bs. 25.04',
+  '$binancep2p': 'Bs. 25.020'
   }
 ```
 Se retorna una estructura en JSON.

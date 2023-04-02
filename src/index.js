@@ -12,7 +12,7 @@ const $monitor = async() => {
   formatHTML.each((i, div) =>{
     const text = $(div).find('p').text();
 
-    return priceResult.push(text);
+    return priceResult.push(text.replace(',', '.'));
   });
   return {
     $bcv: `Bs. ${priceResult[0].split(' ')[2]}`, // BCV
