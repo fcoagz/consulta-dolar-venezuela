@@ -1,43 +1,27 @@
 # consulta-dolar-venezuela
-Esta es una libreria desarrollado en Node.JS te permite consultar los precios del dólar en diferente monitores en Venezuela.
+consulta-dolar-venezuela es una librería de Node.JS que te permite obtener los valores del dólar en diferentes monitores en Venezuela. La librería es fácil de usar y ofrece una manera rápida y eficiente de obtener información relevante sobre el mercado cambiario en Venezuela.
 
 ## Instalación
-Para instalar esta librería, puedes utilizar el siguiente comando de npm:
-
 ```
 npm install consulta-dolar-venezuela
 ```
 
 ## Uso
-1. Importamos la librería:
+El método `getMonitor` de la librería consulta-dolar-venezuela te permite obtener los valores del dólar en diferentes monitores en Venezuela.
 
-```js
-const consultaDolar = require('consulta-dolar-venezuela');
-```
-2. Para consultar la libreria tiene funcion asicronica por lo tanto para consultar se debe consultar de la siguiente manera:
+Los parametros del metodo ante mencionado son los siguientes:
 
-```js
-const consultaDolar = require('consulta-dolar-venezuela');
+- `monitorCode`: El código del monitor que se desea obtener.
+- `nameProperty`: La propiedad específica que se desea obtener del monitor.
+- `prettify`: Indica si se debe formatear el resultado obtenido. [Bs. Valor]
 
-consultaDolar.$monitor().then($=>{console.log($)})
+### Ejemplo
+```javascript
+const consultaDolar = require("consulta-dolar-venezuela");
 
-> {
-  '$bcv': 'Bs. 24.497',
-  '$enparalelovzla': 'Bs. 25.11',
-  '$dolartoday': 'Bs. 25.15',
-  '$monitordolarweb': 'Bs. 25.02',
-  '$enparalelovzlavip': 'Bs. 25.04',
-  '$binancep2p': 'Bs. 25.020'
-  }
-```
-Se retorna una estructura en JSON.
+consultaDolar.getMonitor("null").then($ =>{console.log($)}); /*Obtener los valores de todos los monitores*/
 
-3. Para acceder uno de ellos debemos hacer de la siguiente manera:
+consultaDolar.getMonitor("EnParaleloVzla", "price", false).then($ =>{console.log($)}); /*Obtener el valor del dólar en EnParaleloVzla*/
 
-```js
-const consultaDolar = require('consulta-dolar-venezuela');
-
-consultaDolar.$monitor().then($=>{console.log($['$bcv'])})
-
-> Bs. 24,497
+consultaDolar.getMonitor("BCV", "lastUpdate").then($ =>{console.log($)}); /*Obtener la ultima actualizacion del dólar en BCV*/
 ```

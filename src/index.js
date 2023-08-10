@@ -1,27 +1,65 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+const axios = require("axios").default;
+const cheerio = require("cheerio");
 
-const $monitor = async() => {
-  const webResult = await axios.get('https://monitordolarvenezuela.com/');
-  const $ = cheerio.load(webResult.data)
+const UrlBase = `https://exchangemonitor.net/dolar-venezuela`
 
-  const formatHTML = $("div.row.text-center").find("div.col-12.col-sm-4.col-md-2.col-lg-2");
+function convertSpecificFormat(text) {
+  const acentos = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u' };
+  for (let [acento, sin_acento] of Object.entries(acentos)) {
+    text = text.toLowerCase().replace(acento, sin_acento).replace(' ', '_');
+  }
+  return text;
+}
 
-  const priceResult = new Array();
+/**
+ * Obtiene información del monitor de cambio en Venezuela.
+ *
+ * @param {string} monitorCode - El código del monitor que se desea obtener. 
+ * @param {string} nameProperty - La propiedad específica que se desea obtener del monitor.
+ * @param {boolean} prettify - Indica si se debe formatear el resultado obtenido.
+ * @returns {Promise<string|object>} Un objeto con la información solicitada o una cadena de texto en caso de formateo especial.
+ */
+async function getMonitor(monitorCode, nameProperty, prettify) {
+  try {
+    const response = await axios.get(UrlBase)
+    if (response.status !== 200) {
+      throw new Error(`Error de comunicación ExchangeMonitor. Codigo: ${response.status}`)
+    }
 
-  formatHTML.each((i, div) =>{
-    const text = $(div).find('p').text();
+    const $ = cheerio.load(response.data);
 
-    return priceResult.push(text.replace(',', '.'));
-  });
-  return {
-    $bcv: `Bs. ${priceResult[0].split(' ')[2]}`, // BCV
-    $enparalelovzla: `Bs. ${priceResult[1].split(' ')[2]}`, // EnParaleloVzla3
-    $dolartoday: `Bs. ${priceResult[2].split(' ')[2]}`, // DolarToday
-    $monitordolarweb: `Bs. ${priceResult[3].split(' ')[2]}`, // MonitorDolarWeb
-    $enparalelovzlavip: `Bs. ${priceResult[4].split(' ')[2]}`, // EnParaleloVzlaVip 
-    $binancep2p: `Bs. ${priceResult[5].split(' ')[2]}` // Binance P2P
-  };
-};
+    let section_dolar_venezuela = $("div.row").find("div.col-xs-12.col-sm-6.col-md-4.col-tabla")
+    let section_fecha_valor = $("div.col-xs-12.text-center")
 
-  module.exports = { $monitor }
+    const allMonitors = {};
+
+    const date = section_fecha_valor.find('p').html().split("<br>").slice(-1)[0].replace("</p>", "")
+    allMonitors["value"] = {"date": date}
+
+    section_dolar_venezuela.each((i, div) =>{
+      const monitor = $(div).find("div.module-table.module-table-fecha")
+
+      return allMonitors[convertSpecificFormat(monitor.find("h6.nombre").text())] = {
+        "title": monitor.find("h6.nombre").text(),
+        "price": monitor.find("p.precio").text().replace(',', '.'),
+        "change": monitor.find("p.cambio-por").text(),
+        "lastUpdate": monitor.find("p.fecha").text().split(' ').slice(1).join(' ')
+      }
+    })
+    monitorCode = monitorCode.toLowerCase();
+
+    if (!(monitorCode in allMonitors)) {
+      return allMonitors
+    } else if (prettify && nameProperty == "price") {
+      return `Bs. ${allMonitors[monitorCode][nameProperty]}`
+    } else if (nameProperty in allMonitors[monitorCode]) {
+      return allMonitors[monitorCode][nameProperty]
+    } else {
+      throw new Error("Consulte la documentación de la biblioteca: https://github.com/fcoagz/consulta-dolar-venezuela")
+    }
+  } catch (error) {
+    console.error(`ValueError: ${error.message}`)
+  }
+}
+
+module.exports = { getMonitor }
