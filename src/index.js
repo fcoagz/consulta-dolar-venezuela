@@ -1,7 +1,7 @@
 const axios = require("axios").default;
 const cheerio = require("cheerio");
 
-const UrlBase = `https://exchangemonitor.net/dolar-venezuela`
+const UrlBase = `https://exchangemonitor.net/dolar-venezuela`;
 
 function convertSpecificFormat(text) {
   const acentos = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u' };
@@ -21,45 +21,45 @@ function convertSpecificFormat(text) {
  */
 async function getMonitor(monitorCode, nameProperty, prettify) {
   try {
-    const response = await axios.get(UrlBase)
+    const response = await axios.get(UrlBase);
     if (response.status !== 200) {
-      throw new Error(`Error de comunicación ExchangeMonitor. Codigo: ${response.status}`)
+      throw new Error(`Error de comunicación ExchangeMonitor. Codigo: ${response.status}`);
     }
 
     const $ = cheerio.load(response.data);
 
-    let section_dolar_venezuela = $("div.row").find("div.col-xs-12.col-sm-6.col-md-4.col-tabla")
-    let section_fecha_valor = $("div.col-xs-12.text-center")
+    let section_dolar_venezuela = $("div.row").find("div.col-xs-12.col-sm-6.col-md-4.col-tabla");
+    let section_fecha_valor = $("div.col-xs-12.text-center");
 
     const allMonitors = {};
 
-    const date = section_fecha_valor.find('p').html().split("<br>").slice(-1)[0].replace("</p>", "")
-    allMonitors["value"] = {"date": date}
+    const date = section_fecha_valor.find('p').html().split("<br>").slice(-1)[0].replace("</p>", "");
+    allMonitors["value"] = {"date": date};
 
     section_dolar_venezuela.each((i, div) =>{
-      const monitor = $(div).find("div.module-table.module-table-fecha")
+      const monitor = $(div).find("div.module-table.module-table-fecha");
 
-      return allMonitors[convertSpecificFormat(monitor.find("h6.nombre").text())] = {
+      allMonitors[convertSpecificFormat(monitor.find("h6.nombre").text())] = {
         "title": monitor.find("h6.nombre").text(),
         "price": monitor.find("p.precio").text().replace(',', '.'),
         "change": monitor.find("p.cambio-por").text(),
         "lastUpdate": monitor.find("p.fecha").text().split(' ').slice(1).join(' ')
-      }
-    })
+      };
+    });
     monitorCode = monitorCode.toLowerCase();
 
     if (!(monitorCode in allMonitors)) {
-      return allMonitors
+      return allMonitors;
     } else if (prettify && nameProperty == "price") {
-      return `Bs. ${allMonitors[monitorCode][nameProperty]}`
+      return `Bs. ${allMonitors[monitorCode][nameProperty]}`;
     } else if (nameProperty in allMonitors[monitorCode]) {
-      return allMonitors[monitorCode][nameProperty]
+      return allMonitors[monitorCode][nameProperty];
     } else {
-      throw new Error("Consulte la documentación de la biblioteca: https://github.com/fcoagz/consulta-dolar-venezuela")
+      throw new Error("Consulte la documentación de la biblioteca: https://github.com/fcoagz/consulta-dolar-venezuela");
     }
   } catch (error) {
-    console.error(`ValueError: ${error.message}`)
+    console.error(`ValueError: ${error.message}`);
   }
 }
 
-module.exports = { getMonitor }
+module.exports = { getMonitor };
