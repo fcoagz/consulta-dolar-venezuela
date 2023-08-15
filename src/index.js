@@ -38,14 +38,16 @@ async function getMonitor(monitorCode, nameProperty, prettify) {
 
     section_dolar_venezuela.each((i, div) =>{
       const monitor = $(div).find("div.module-table.module-table-fecha");
+      const text_price = monitor.find("p.precio").text().replace(',', '.');
 
       allMonitors[convertSpecificFormat(monitor.find("h6.nombre").text())] = {
         "title": monitor.find("h6.nombre").text(),
-        "price": monitor.find("p.precio").text().replace(',', '.'),
+        "price": text_price.match(/\./g).length === 2 ? text_price.replace('.', '') : text_price,
         "change": monitor.find("p.cambio-por").text(),
         "lastUpdate": monitor.find("p.fecha").text().split(' ').slice(1).join(' ')
       };
     });
+
     monitorCode = monitorCode.toLowerCase();
 
     if (!(monitorCode in allMonitors)) {
