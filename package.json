@@ -1,6 +1,6 @@
 {
   "name": "consulta-dolar-venezuela",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Te permite obtener los valores del dólar en diferentes monitores en Venezuela.",
   "main": "src/index.js",
   "scripts": {
