@@ -17,11 +17,26 @@ Los parametros del metodo ante mencionado son los siguientes:
 
 ### Ejemplo
 ```javascript
-const consultaDolar = require("consulta-dolar-venezuela");
+const { getMonitor } = require("consulta-dolar-venezuela");
 
-consultaDolar.getMonitor("null").then($ =>{console.log($)}); /*Obtener los valores de todos los monitores*/
+getMonitor("null").then($ =>{console.log($)}); /*Obtener los valores de todos los monitores*/
 
-consultaDolar.getMonitor("EnParaleloVzla", "price", false).then($ =>{console.log($)}); /*Obtener el valor del dólar en EnParaleloVzla*/
+getMonitor("EnParaleloVzla", "price", false).then($ =>{console.log($)}); /*Obtener el valor del dólar en EnParaleloVzla*/
 
-consultaDolar.getMonitor("BCV", "lastUpdate").then($ =>{console.log($)}); /*Obtener la ultima actualizacion del dólar en BCV*/
+getMonitor("BCV", "lastUpdate").then($ =>{console.log($)}); /*Obtener la ultima actualizacion del dólar en BCV*/
+```
+
+El método `getDate` de la librería consulta-dolar-venezuela obtienes la hora actual en Venezuela.
+
+El parametro del metodo ante mencionado es el siguiente:
+
+- `dateOrTime`: La propiedad específica que se desea obtener del tiempo `date` || `time` || `all`.
+
+### Ejemplo
+```javascript
+const { getDate } = require("consulta-dolar-venezuela");
+
+getDate("all").then($ =>{console.log($)}); /*Obtener un objecto de los valores `date` y `time`*/
+
+getDate("time").then($ =>{console.log($)}); /*Obtener el valor del tiempo`*/
 ```
