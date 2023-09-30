@@ -25,18 +25,3 @@ getMonitor("EnParaleloVzla", "price", false).then($ =>{console.log($)}); /*Obten
 
 getMonitor("BCV", "lastUpdate").then($ =>{console.log($)}); /*Obtener la ultima actualizacion del dólar en BCV*/
 ```
-
-El método `getDate` de la librería consulta-dolar-venezuela obtienes la hora actual en Venezuela.
-
-El parametro del metodo ante mencionado es el siguiente:
-
-- `dateOrTime`: La propiedad específica que se desea obtener del tiempo `date` || `time` || `all`.
-
-### Ejemplo
-```javascript
-const { getDate } = require("consulta-dolar-venezuela");
-
-getDate("all").then($ =>{console.log($)}); /*Obtener un objecto de los valores `date` y `time`*/
-
-getDate("time").then($ =>{console.log($)}); /*Obtener el valor del tiempo`*/
-```
