@@ -1,7 +1,7 @@
 {
   "name": "consulta-dolar-venezuela",
-  "version": "1.1.0",
-  "description": "Te permite obtener los valores del dólar en diferentes monitores en Venezuela.",
+  "version": "1.1.1",
+  "description": "JavaScript SDK for API pyDolarVenezuela",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,14 +17,13 @@
     "bcv",
     "venezuela"
   ],
-  "author": "ciscocode",
+  "author": "Francisco Griman",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/fcoagz/consulta-dolar-venezuela/issues"
   },
   "homepage": "https://github.com/fcoagz/consulta-dolar-venezuela#readme",
   "dependencies": {
-    "axios": "^1.4.0",
-    "cheerio": "^1.0.0-rc.12"
+    "axios": "^1.4.0"
   }
 }
