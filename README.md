@@ -7,21 +7,20 @@ npm install consulta-dolar-venezuela
 ```
 
 ## Uso
-El método `getMonitor` de la librería consulta-dolar-venezuela te permite obtener los valores del dólar en diferentes monitores en Venezuela.
+La clase `pyDolarVenezuela` de la librería te permite obtener los valores del dólar en diferentes monitores en Venezuela. [Más información](https://github.com/fcoagz/api-pydolarvenezuela)
 
-Los parametros del metodo ante mencionado son los siguientes:
+Los métodos disponibles en la clase son los siguientes:
 
-- `monitorCode`: El código del monitor que se desea obtener.
-- `nameProperty`: La propiedad específica que se desea obtener del monitor.
-- `prettify`: Indica si se debe formatear el resultado obtenido. [Bs. Valor]
+- `getMonitor(monitorCode)`: Este método te permite obtener los valores de un monitor específico. El parámetro `monitorCode` es el código del monitor que se desea obtener.
+- `getAllMonitors()`: Este método te permite obtener los valores de todos los monitores.
 
 ### Ejemplo
 ```javascript
-const { getMonitor } = require("consulta-dolar-venezuela");
+const { pyDolarVenezuela } = require("consulta-dolar-venezuela");
 
-getMonitor("null").then($ =>{console.log($)}); /*Obtener los valores de todos los monitores*/
+const pyDolar = new pyDolarVenezuela('bcv');
 
-getMonitor("EnParaleloVzla", "price", false).then($ =>{console.log($)}); /*Obtener el valor del dólar en EnParaleloVzla*/
+pyDolar.getAllMonitors().then($ =>{console.log($)}); /*Obtener los valores de todos los monitores*/
 
-getMonitor("BCV", "lastUpdate").then($ =>{console.log($)}); /*Obtener la ultima actualizacion del dólar en BCV*/
+pyDolar.getMonitor("USD").then($ =>{console.log($)}); /*Obtener el valor del dólar en BCV*/
 ```
