@@ -1,6 +1,6 @@
 {
   "name": "consulta-dolar-venezuela",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "JavaScript SDK for API pyDolarVenezuela",
   "main": "src/index.js",
   "scripts": {
