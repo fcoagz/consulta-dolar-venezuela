@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 
-const API_BASE = 'https://pydolarvenezuela-api.vercel.app/api/v1/dollar';
+const API_BASE = 'http://pydolarve.org/api/v1/dollar';
 
 async function request(url, params = {}) {
   try {
@@ -21,7 +21,7 @@ class pyDolarVenezuela {
    * @throws {Error} Si la página proporcionada no es válida.
    */
   constructor(page) {
-    const validPages = ['alcambio', 'bcv', 'exchangemonitor', 'criptodolar', 'italcambio'];
+    const validPages = ['alcambio', 'bcv', 'criptodolar', 'italcambio'];
     if (!validPages.includes(page)) {
       throw new Error('Invalid page');
     }
